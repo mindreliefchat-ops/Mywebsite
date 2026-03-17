@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feel Better App</title>
+
+    <style>
+        body {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            text-align: center;
+            font-family: Arial;
+            padding-top: 80px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 35px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>How are you feeling today? 💭</h1>
+
+    <button onclick="happy()">😊 Happy</button>
+    <button onclick="sad()">😔 Sad</button>
+    <button onclick="angry()">😡 Angry</button>
+
+    <div id="result"></div>
+
+    <script>
+        function happy() {
+            document.getElementById("result").innerText = "Keep spreading your positivity 💛";
+        }
+
+        function sad() {
+            document.getElementById("result").innerText = "It's okay to feel sad. You are not alone 🤍";
+        }
+
+        function angry() {
+            document.getElementById("result").innerText = "Take a deep breath. Calm your mind 🧘‍♀️";
+        }
+    </script>
+
+</body>
+</html> 
+

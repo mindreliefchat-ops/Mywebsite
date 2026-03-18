@@ -45,6 +45,7 @@
 
 <body>
 
+   <h2>Mind Relief 💜</h2>
     <h1>How are you feeling today? 💭</h1>
 
     <button onclick="happy()">😊 Happy</button>
@@ -61,10 +62,13 @@
 
     <button onclick="saveNote()">Save Feeling 💾</button>
  
+    <p id="response" style="margin-top:15px;"></p> 
+ 
     <button onclick="clearAll()">🗑️ Delete All</button>
  
     <button onclick="startVoice()">🎤 Speak</button> 
 
+   <h3>Your Journal 📝</h3> 
     <div id="history"></div>
 
     <script>
@@ -101,6 +105,21 @@
 
         function saveNote() {
             let text = document.getElementById("note").value;
+            let message = "";
+
+if(text.includes("happy")) {
+  message = "Keep shining 💛";
+} else if(text.includes("sad")) {
+  message = "You are not alone 🤍";
+} else if(text.includes("angry")) {
+  message = "Take a deep breath 🧘‍♀️";
+} else {
+  message = "Your feelings matter 💜";
+}
+
+alert(message);
+
+document.getElementById("response").innerText = message;
 
             if(text === "") {
                 alert("Write something first");

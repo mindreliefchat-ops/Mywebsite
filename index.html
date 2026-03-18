@@ -25,12 +25,22 @@
             cursor: pointer;
         }
 
+        input {
+            padding:10px;
+            border-radius:10px;
+            border:none;
+            width:80%;
+        }
+
         #result {
-            margin-top: 30px;
+            margin-top: 20px;
             font-size: 20px;
         }
-    </style>
 
+        #history {
+            margin-top:20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,20 +53,84 @@
 
     <div id="result"></div>
 
+    <br><br>
+
+    <input id="note" placeholder="Write your feeling">
+
+    <br><br>
+
+    <button onclick="saveNote()">Save Feeling 💾</button>
+ 
+    <button onclick="clearAll()">🗑️ Delete All</button>
+ 
+    <button onclick="startVoice()">🎤 Speak</button> 
+
+    <div id="history"></div>
+
     <script>
+      function startVoice() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Voice not supported in this device");
+    return;
+  }
+
+  let recognition = new webkitSpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    let text = event.results[0][0].transcript;
+    document.getElementById("note").value = text;
+  };
+}
+      function clearAll() {
+  localStorage.removeItem("feelings");
+  document.getElementById("history").innerHTML = "";
+}
         function happy() {
             document.getElementById("result").innerText = "Keep spreading your positivity 💛";
         }
 
         function sad() {
-            document.getElementById("result").innerText = "It's okay to feel sad. You are not alone 🤍";
+            document.getElementById("result").innerText = "It's okay to feel sad 🤍";
         }
 
         function angry() {
-            document.getElementById("result").innerText = "Take a deep breath. Calm your mind 🧘‍♀️";
+            document.getElementById("result").innerText = "Take a deep breath 🧘‍♀️";
         }
+
+        function saveNote() {
+            let text = document.getElementById("note").value;
+
+            if(text === "") {
+                alert("Write something first");
+                return;
+            }
+
+            let old = JSON.parse(localStorage.getItem("feelings")) || [];
+            old.push(text);
+            localStorage.setItem("feelings", JSON.stringify(old));
+
+            alert("Saved 💜");
+
+            document.getElementById("note").value = "";
+
+            showHistory();
+        }
+
+        function showHistory() {
+            let data = JSON.parse(localStorage.getItem("feelings")) || [];
+
+            let output = "";
+            data.forEach((item) => {
+                output += "<p>📝 " + item + "</p>";
+            });
+
+            document.getElementById("history").innerHTML = output;
+        }
+
+        window.onload = showHistory;
     </script>
 
 </body>
 </html> 
-
